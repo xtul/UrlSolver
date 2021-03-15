@@ -60,8 +60,10 @@
 			createEntry('<b>URL</b>: <a href="' + data.url + '">' + data.url + '</a>');
 			createEntry('<b>Title</b>: ' + data.title);
 
-			if (data.note != undefined) {
-				createEntry('<b>Note</b>: ' + data.note);
+			if (data.notes != undefined) {
+				for (i = 0; i < data.notes.length; i++) {
+					createEntry('<b>Note</b>: ' + data.notes[i]);
+				}
 			}
 		}
 

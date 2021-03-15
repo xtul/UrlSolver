@@ -7,6 +7,6 @@ namespace UrlSolver.Objects {
 	public class UrlSolverResponse : IApiResponse {
 		public string Url { get; set; }
 		public string Title { get; set; }
-		public string Note { get; set; }
+		public List<string> Notes { get; set; }
 	}
 }

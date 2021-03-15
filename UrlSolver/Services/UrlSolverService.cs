@@ -26,13 +26,16 @@ namespace UrlSolver.Services {
 
 			var response = new UrlSolverResponse {
 				Url = finalUrl,
-				Title = title
+				Title = title,
+				Notes = new List<string>()
 			};
 
-			string note;
 			if (finalUrl == url) {
-				note = "There was no redirection or redirection is made outside HTTP header.";
-				response.Note = note;
+				response.Notes.Add("There was no redirection or redirection is made outside HTTP header.");
+			}
+
+			if (title == null) {
+				response.Notes.Add("Title is probably dynamically set after the page loads.");
 			}
 
 			return response;
