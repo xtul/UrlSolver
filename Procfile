@@ -1,1 +1,1 @@
-web: cd $HOME/UrlSolver && dotnet ./UrlSolver.dll --server.urls http://+:$PORT ${CORE_ENVIRONMENT}
+web: cd /app/heroku_output && dotnet ./UrlSolver.dll --server.urls http://+:$PORT ${CORE_ENVIRONMENT}
