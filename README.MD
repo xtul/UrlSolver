@@ -8,7 +8,7 @@ UrlSolver is a tiny web service that enters user-provided link and retrieves the
 
 Send a GET request to this url:
 
-`https://url-solver.herokuapp.com/url=?https://tiny.pl/h2xvk`
+`https://url-solver.herokuapp.com/api?url=https://tiny.pl/h2xvk`
 
 You should get this response:
 
