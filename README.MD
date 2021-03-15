@@ -1,10 +1,17 @@
 ﻿# UrlSolver
 
 Don't get Rickrolled ever again.
+
 UrlSolver is a tiny web service that enters user-provided link and retrieves the final destination URL and page title.
 
 
 # Usage
+
+## User Interface
+
+Visit [https://url-solver.herokuapp.com/](https://url-solver.herokuapp.com/) to use a simple JS interface.
+
+## Manual
 
 Send a GET request to this url:
 
@@ -18,5 +25,3 @@ You should get this response:
 	"title": "Rick Astley - Never Gonna Give You Up (Video) - YouTube"
 }
 ```
-
-You can also see visit `https://url-solver.herokuapp.com/` to use a simple JS interface.
