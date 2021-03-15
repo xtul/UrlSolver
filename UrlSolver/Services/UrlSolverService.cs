@@ -14,10 +14,21 @@ namespace UrlSolver.Services {
 		public static async Task<UrlSolverResponse> GetWebsiteInfo(string url) {
 			var webScrapper = await WebScrapper.Create(url);
 
-			return new UrlSolverResponse {
-				Url = webScrapper.GetWebsiteUrl(),
-				Title = webScrapper.GetWebsiteTitle()
+			var finalUrl = webScrapper.GetWebsiteUrl();
+			var title = webScrapper.GetWebsiteTitle();
+
+			var response = new UrlSolverResponse {
+				Url = finalUrl,
+				Title = title
 			};
+
+			string note;
+			if (finalUrl == url) {
+				note = "There was no redirection or redirection is made outside HTTP header.";
+				response.Note = note;
+			}
+
+			return response;
 		}
 	}
 }

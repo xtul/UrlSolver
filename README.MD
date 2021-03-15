@@ -7,11 +7,11 @@ UrlSolver is a tiny web service that enters user-provided link and retrieves the
 
 # Usage
 
-## User Interface
+### User Interface
 
 Visit [https://url-solver.herokuapp.com/](https://url-solver.herokuapp.com/) to use a simple JS interface.
 
-## Manual
+### Manual
 
 Send a GET request to this url:
 
@@ -25,3 +25,7 @@ You should get this response:
 	"title": "Rick Astley - Never Gonna Give You Up (Video) - YouTube"
 }
 ```
+
+# Notice
+
+UrlSolver works by following the `Location` HTTP header. If redirection is made in some other way (eg. JavaScript run on document load), UrlSolver will not detect it. But then again, do you really want to enter a masked URL that jumps through hoops to prevent being bypassed?

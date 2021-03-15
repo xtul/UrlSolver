@@ -53,10 +53,8 @@ namespace UrlSolver.Stores {
 		private static async Task<string> GetRedirectionUrl(string url, HttpClient client) {
 			var response = await client.GetAsync(url);
 			var locationExists = response.Headers.TryGetValues("Location", out var location);
-			var contentLocationExists = response.Headers.TryGetValues("Content-Location", out var contentLocation);
 
 			if (locationExists) return location.First();
-			if (contentLocationExists) return contentLocation.First();
 
 			return null;
 		}

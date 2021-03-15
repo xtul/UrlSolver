@@ -58,6 +58,10 @@
 
 			createEntry('<b>URL</b>: <a href="' + data.url + '">' + data.url + '</a>');
 			createEntry('<b>Title</b>: ' + data.title);
+
+			if (data.note != undefined) {
+				createEntry('<b>Note</b>: ' + data.note);
+			}
 		}
 
 		function createEntry(text) {
