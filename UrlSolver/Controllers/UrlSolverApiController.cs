@@ -16,7 +16,7 @@ namespace UrlSolver.Controllers {
 		}
 
 		[HttpGet]
-		public async Task<dynamic> Get([FromQuery] string url) {
+		public async Task<IApiResponse> Get([FromQuery] string url) {
 			if (url is null) {
 				return new ErrorResponse {
 					Error = "No url found in query."

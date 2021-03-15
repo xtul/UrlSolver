@@ -11,8 +11,15 @@ namespace UrlSolver.Services {
 		/// <summary>
 		/// Creates a web scrapper for provided <paramref name="url"/> and retrieves website's info.
 		/// </summary>
-		public static async Task<UrlSolverResponse> GetWebsiteInfo(string url) {
-			var webScrapper = await WebScrapper.Create(url);
+		public static async Task<IApiResponse> GetWebsiteInfo(string url) {
+			WebScrapper webScrapper;
+			try {
+				webScrapper = await WebScrapper.Create(url);
+			} catch (BadUrlException) {
+				return new ErrorResponse {
+					Error = "Bad url."
+				};
+			}
 
 			var finalUrl = webScrapper.GetWebsiteUrl();
 			var title = webScrapper.GetWebsiteTitle();

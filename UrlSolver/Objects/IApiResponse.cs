@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace UrlSolver.Objects {
-	public class ErrorResponse : IApiResponse {
-		public string Error { get; set; }
+	/// <summary>
+	/// Marker interface, signifies this class is an API response.
+	/// </summary>
+	public interface IApiResponse {
 	}
 }

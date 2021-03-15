@@ -17,7 +17,7 @@
 			<noscript>
 				<p>This website requires JavaScript enabled - you can use raw API requests if you want, though.</p>
 			</noscript>
-			<input type="text" id="url" autofocus>
+			<input type="text" id="url" autofocus onkeypress="submitViaEnter(event)">
 			<button id="solve-btn" onclick="getUrlInfo()">Solve</button>
 			<div id="info">
 
@@ -28,6 +28,7 @@
 	
 	<script>
 		const infoDiv = document.querySelector('#info');
+		const button = document.querySelector('#solve-btn');
 
 		function getUrlInfo() {
 			const url = document.querySelector('#url').value;
@@ -68,6 +69,14 @@
 			let el = document.createElement('p');
 			el.innerHTML = text;
 			infoDiv.appendChild(el);
+		}
+
+		function submitViaEnter(event) {
+			if (event.key === 'Enter') {
+				event.preventDefault();
+				event.stopPropagation();
+				getUrlInfo();
+			}
 		}
 	</script>
 </body>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -21,8 +22,10 @@ namespace UrlSolver.Stores {
 		}
 		private HtmlDocument Website { get; set; }
 		private bool Created { get; set; }
-		private readonly WebScrapperNotCreated NotCreatedException 
-			= new WebScrapperNotCreated("You need to create the WebScrapper first. See Create() method.");
+		private static readonly WebScrapperNotCreatedException NotCreatedException 
+			= new WebScrapperNotCreatedException("You need to create the WebScrapper first. See Create() method.");
+		private static readonly BadUrlException BadUrlException
+			= new BadUrlException("Couldn't connect to specified URL.");
 
 		/// <summary>
 		/// Creates web scrapper for this URL.
@@ -37,6 +40,12 @@ namespace UrlSolver.Stores {
 			if (responseUrl is null) {
 				responseUrl = url;
 			}
+
+			// if couldn't connect to website, throw BadUrlException
+			if (responseUrl == "BAD") {
+				throw BadUrlException;
+			}
+
 			var website = await web.LoadFromWebAsync(responseUrl);
 
 			return new WebScrapper {
@@ -52,7 +61,12 @@ namespace UrlSolver.Stores {
 			};
 			var httpClient = new HttpClient(clientHandler);
 
-			var response = await httpClient.GetAsync(url);
+			HttpResponseMessage response;
+			try {
+				response = await httpClient.GetAsync(url);
+			} catch {
+				return "BAD";
+			}
 			var locationExists = response.Headers.TryGetValues("Location", out var location);
 
 			if (locationExists) return location.First();

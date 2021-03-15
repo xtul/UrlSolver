@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace UrlSolver.Objects {
-	public class UrlSolverResponse {
+	public class UrlSolverResponse : IApiResponse {
 		public string Url { get; set; }
 		public string Title { get; set; }
 		public string Note { get; set; }
