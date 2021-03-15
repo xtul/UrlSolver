@@ -20,6 +20,9 @@ namespace UrlSolver.Stores {
 			set => BaseUrl = HttpUtility.HtmlEncode(value);
 		}
 		private HtmlDocument Website { get; set; }
+		private bool Created { get; set; }
+		private readonly WebScrapperNotCreated NotCreatedException 
+			= new WebScrapperNotCreated("You need to create the WebScrapper first. See Create() method.");
 
 		/// <summary>
 		/// Creates web scrapper for this URL.
@@ -42,7 +45,8 @@ namespace UrlSolver.Stores {
 
 			return new WebScrapper {
 				Website = website,
-				Url = responseUrl
+				Url = responseUrl,
+				Created = true
 			};
 		}
 
@@ -58,10 +62,18 @@ namespace UrlSolver.Stores {
 		}
 
 		public string GetWebsiteTitle() {
+			if (!Created) {
+				throw NotCreatedException;
+			}
+
 			return Website.DocumentNode.SelectSingleNode("html")?.SelectSingleNode("head")?.SelectSingleNode("title")?.InnerText ?? null;
 		}
 
 		public string GetWebsiteUrl() {
+			if (!Created) {
+				throw NotCreatedException;
+			}
+
 			return Url;
 		}
 	}

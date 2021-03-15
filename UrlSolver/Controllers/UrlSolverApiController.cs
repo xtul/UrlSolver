@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UrlSolver.Objects;
+using UrlSolver.Services;
 using UrlSolver.Stores;
 
 namespace UrlSolver.Controllers {
@@ -33,12 +34,9 @@ namespace UrlSolver.Controllers {
 				};
 			}
 
-			var webScrapper = await WebScrapper.Create(url);
+			var result = await UrlSolverService.GetWebsiteInfo(url);
 
-			return new UrlSolverResponse {
-				Url = webScrapper.GetWebsiteUrl(),
-				Title = webScrapper.GetWebsiteTitle()
-			};
+			return result;
 		}
 	}
 }
