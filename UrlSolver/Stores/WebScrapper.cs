@@ -31,12 +31,8 @@ namespace UrlSolver.Stores {
 		/// <returns>A WebScrapper class.</returns>
 		public static async Task<WebScrapper> Create(string url) {
 			var web = new HtmlWeb();
-			var clientHandler = new HttpClientHandler {
-				AllowAutoRedirect = false
-			};
-			var httpClient = new HttpClient(clientHandler);
 
-			var responseUrl = await GetRedirectionUrl(url, httpClient);
+			var responseUrl = await GetRedirectionUrl(url);
 			// if there is no redirection header then just go with what user provided
 			if (responseUrl is null) {
 				responseUrl = url;
@@ -50,8 +46,13 @@ namespace UrlSolver.Stores {
 			};
 		}
 
-		private static async Task<string> GetRedirectionUrl(string url, HttpClient client) {
-			var response = await client.GetAsync(url);
+		private static async Task<string> GetRedirectionUrl(string url) {
+			var clientHandler = new HttpClientHandler {
+				AllowAutoRedirect = false
+			};
+			var httpClient = new HttpClient(clientHandler);
+
+			var response = await httpClient.GetAsync(url);
 			var locationExists = response.Headers.TryGetValues("Location", out var location);
 
 			if (locationExists) return location.First();

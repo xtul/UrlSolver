@@ -37,8 +37,6 @@ namespace UrlSolver {
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UrlSolver v1"));
 			}
 
-			app.UseHttpsRedirection();
-
 			app.UseRouting();
 			app.UseStaticFiles();
 
