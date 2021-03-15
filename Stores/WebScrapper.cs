@@ -8,7 +8,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
-using UrlSolver.Helpers;
 
 namespace UrlSolver.Stores {
 	public class WebScrapper {
