@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta name="title" content="Url Solver">
+	<meta name="robots" content="index, follow">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="language" content="English">
+	<title>Url Solver</title>
+	<link rel="stylesheet" href="~/page.min.css">
+</head>
+<body>
+	<div class="container">
+		<div class="centered">
+			<h1>URL Solver</h1>
+			<p>Paste a shortened URL below to see where it leads.</p>
+			<noscript>
+				<p>This website requires JavaScript enabled - you can use raw API requests if you want, though.</p>
+			</noscript>
+			<input type="text" id="url" autofocus>
+			<button id="solve-btn" onclick="getUrlInfo()">Solve</button>
+			<div id="info">
+
+			</div>
+		</div>
+	</div>
+
+	
+	<script>
+		const infoDiv = document.querySelector('#info');
+
+		function getUrlInfo() {
+			const url = document.querySelector('#url').value;
+
+			// clear previous info
+			while (infoDiv.firstChild) {
+				infoDiv.removeChild(infoDiv.lastChild);
+			}
+
+			createEntry('Pending...');
+
+			fetch('/api?url=' + url)
+				.then(function (response) {
+					return response.json();
+				})
+				.then(function (jsonResponse) {
+					// clear "pending"
+					infoDiv.removeChild(infoDiv.lastChild);
+					updateInfo(jsonResponse);
+				});
+		}
+
+		function updateInfo(data) {
+			if (data.url == undefined) {
+				createEntry('Error: ' + data.error);
+				return;
+			}
+
+			createEntry('<b>URL</b>: <a href="' + data.url + '">' + data.url + '</a>');
+			createEntry('<b>Title</b>: ' + data.title);
+		}
+
+		function createEntry(text) {
+			let el = document.createElement('p');
+			el.innerHTML = text;
+			infoDiv.appendChild(el);
+		}
+	</script>
+</body>
+</html>

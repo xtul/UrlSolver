@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "wwwdata/page.css",
+    "inputFile": "wwwdata/page.scss"
+  },
+  {
+    "outputFile": "wwwroot/page.css",
+    "inputFile": "wwwroot/page.scss"
+  }
+]
