@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UrlSolver.Objects;
 using UrlSolver.Services;
-using UrlSolver.Stores;
 
 namespace UrlSolver.Controllers {
 	[ApiController]
