@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UrlSolver.Objects;
 using UrlSolver.Stores;
 
 namespace UrlSolver.Services {
 	public static class UrlSolverService {
-
 		/// <summary>
 		/// Creates a web scrapper for provided <paramref name="url"/> and retrieves website's info.
 		/// </summary>
@@ -34,7 +31,7 @@ namespace UrlSolver.Services {
 				response.Notes.Add("There was no redirection or redirection is made outside HTTP header.");
 			}
 
-			if (title == null) {
+			if (title is null) {
 				response.Notes.Add("Title is probably dynamically set after the page loads.");
 			}
 

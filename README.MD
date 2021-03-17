@@ -22,7 +22,8 @@ You should get this response:
 ```
 {
 	"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-	"title": "Rick Astley - Never Gonna Give You Up (Video) - YouTube"
+	"title": "Rick Astley - Never Gonna Give You Up (Video) - YouTube",
+	"notes": []
 }
 ```
 

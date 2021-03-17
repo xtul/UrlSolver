@@ -28,6 +28,7 @@ namespace UrlSolver {
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "UrlSolver", Version = "v1" });
 			});
 			services.AddControllersWithViews();
+			services.AddLazyCache();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {

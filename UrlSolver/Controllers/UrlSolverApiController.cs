@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LazyCache;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -9,10 +10,10 @@ namespace UrlSolver.Controllers {
 	[ApiController]
 	[Route("/api")]
 	public class UrlSolverApiController : ControllerBase {
-		private readonly ILogger<UrlSolverApiController> _logger;
+		private readonly IAppCache Cache;
 
-		public UrlSolverApiController(ILogger<UrlSolverApiController> logger) {
-			_logger = logger;
+		public UrlSolverApiController() {
+			Cache = new CachingService();
 		}
 
 		[HttpGet]
@@ -23,15 +24,19 @@ namespace UrlSolver.Controllers {
 				};
 			}
 
+			// adds http to url if not present
 			url = new UriBuilder(url).Uri.ToString();
 
-			if (!url.StartsWith("http")) {
+			IApiResponse result;
+			async Task<IApiResponse> websiteInfoGetter() => await UrlSolverService.GetWebsiteInfo(url);
+			// heroku likely won't keep the app awake above 30 minutes
+			result = await Cache.GetOrAdd($"websiteInfo-{url}", websiteInfoGetter, TimeSpan.FromMinutes(30));
+
+			if (result is null) {
 				return new ErrorResponse {
-					Error = "Bad url provided. Please check if http/https is present."
+					Error = "Couldn't get website info. Try again later."
 				};
 			}
-
-			var result = await UrlSolverService.GetWebsiteInfo(url);
 
 			return result;
 		}
