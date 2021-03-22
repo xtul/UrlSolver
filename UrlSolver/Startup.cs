@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace UrlSolver {
@@ -22,12 +23,13 @@ namespace UrlSolver {
 		}
 
 		public void ConfigureServices(IServiceCollection services) {
-
 			services.AddControllers();
 			services.AddSwaggerGen(c => {
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "UrlSolver", Version = "v1" });
 			});
-			services.AddControllersWithViews();
+			services.AddControllersWithViews().AddJsonOptions(x => {
+				x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+			});
 			services.AddLazyCache();
 		}
 

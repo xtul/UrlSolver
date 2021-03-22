@@ -24,15 +24,20 @@ namespace UrlSolver.Services {
 			var response = new UrlSolverResponse {
 				Url = finalUrl,
 				Title = title,
-				Notes = new List<string>()
 			};
 
+			var notes = new List<string>();
+
 			if (finalUrl == url) {
-				response.Notes.Add("There was no redirection or redirection is made outside HTTP header.");
+				notes.Add("There was no redirection or redirection is made outside HTTP header.");
 			}
 
 			if (title is null) {
-				response.Notes.Add("Title is probably dynamically set after the page loads.");
+				notes.Add("Title is probably dynamically set after the page loads.");
+			}
+
+			if (notes.Count > 0) {
+				response.Notes = notes;
 			}
 
 			return response;
